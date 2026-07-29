@@ -1,0 +1,75 @@
+.hero {
+  padding-block: var(--space-7) var(--space-6);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.hero__inner {
+  max-width: 46rem;
+}
+
+.hero__eyebrow {
+  margin-bottom: var(--space-3);
+}
+
+.hero__quote {
+  margin: 0;
+}
+
+.hero__quote p {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-size: clamp(1.75rem, 1.15rem + 2.6vw, 3.1rem);
+  line-height: 1.24;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.hero__quote cite {
+  display: block;
+  margin-top: var(--space-3);
+  font-style: normal;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--slate);
+}
+
+.hero__route {
+  width: min(100%, 26rem);
+  margin-top: var(--space-6);
+}
+
+.route-mark {
+  width: 100%;
+  height: auto;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+  margin-top: var(--space-5);
+}
+
+.hero__scroll {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--slate);
+  text-decoration: none;
+  border-bottom: 1px solid var(--hairline);
+  padding-bottom: 2px;
+  transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+
+.hero__scroll:hover {
+  color: var(--bronze-deep);
+  border-color: var(--bronze);
+}
+
+@media (min-width: 768px) {
+  .hero {
+    padding-block: var(--space-8) var(--space-7);
+  }
+}

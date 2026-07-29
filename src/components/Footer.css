@@ -1,0 +1,29 @@
+.footer {
+  background: var(--ink);
+  border-top: 1px solid var(--hairline-dark);
+}
+
+.footer__row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding-block: var(--space-3);
+  font-size: 0.8125rem;
+}
+
+.footer__mark {
+  font-family: var(--font-display);
+  color: var(--paper);
+}
+
+.footer__meta {
+  color: color-mix(in srgb, var(--paper) 50%, transparent);
+}
+
+@media (min-width: 640px) {
+  .footer__row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

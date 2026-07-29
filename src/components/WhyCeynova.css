@@ -1,0 +1,32 @@
+.why {
+  padding-block: var(--space-6);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.why__inner {
+  max-width: 44rem;
+}
+
+.why__statement {
+  margin-top: var(--space-4);
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2.35rem);
+  line-height: 1.35;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+}
+
+.why__support {
+  margin-top: var(--space-4);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--slate);
+  max-width: 36rem;
+}
+
+@media (min-width: 768px) {
+  .why {
+    padding-block: var(--space-7);
+  }
+}
