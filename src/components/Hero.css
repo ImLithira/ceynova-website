@@ -35,14 +35,23 @@
   color: var(--slate);
 }
 
-.hero__route {
+.hero__network {
   width: min(100%, 26rem);
+  height: 130px;
   margin-top: var(--space-6);
+  overflow: hidden;
+  position: relative;
 }
 
-.route-mark {
-  width: 100%;
-  height: auto;
+/* A windowed excerpt of the network animation, not the whole scene:
+   the composition is rendered oversized and offset so this small box
+   crops into one interesting slice rather than shrinking everything. */
+.hero__network .connection-network {
+  position: absolute;
+  width: 756px;
+  height: 425px;
+  left: -147px;
+  top: -253px;
 }
 
 .hero__actions {

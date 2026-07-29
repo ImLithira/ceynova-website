@@ -1,6 +1,8 @@
+import { lazy, Suspense } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
-import RouteMark from './RouteMark'
 import './Hero.css'
+
+const ConnectionNetworkBackground = lazy(() => import('./ConnectionNetworkBackground'))
 
 const ease = [0.16, 1, 0.3, 1] as const
 
@@ -29,8 +31,10 @@ export default function Hero() {
           <cite>— Ashan Ransilige</cite>
         </motion.blockquote>
 
-        <motion.div className="hero__route" {...rise(0.2)}>
-          <RouteMark />
+        <motion.div className="hero__network" {...rise(0.2)}>
+          <Suspense fallback={null}>
+            <ConnectionNetworkBackground />
+          </Suspense>
         </motion.div>
 
         <motion.div className="hero__actions" {...rise(0.3)}>
