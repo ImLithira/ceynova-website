@@ -35,37 +35,14 @@
   color: var(--slate);
 }
 
-.hero__network {
+.hero__route {
   width: min(100%, 26rem);
-  height: 130px;
   margin-top: var(--space-6);
-  overflow: hidden;
-  position: relative;
 }
 
-/* Soft-edged window instead of a hard rectangular clip: a radial
-   overlay fading from transparent (center) to the page background
-   (edges), painted on top of the animation. Deliberately not using
-   CSS mask-image here -- support for it is inconsistent enough across
-   browsers/devices that an unsupported mask can render the whole
-   element invisible instead of just losing the soft edge. */
-.hero__network::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(ellipse 49% 49% at 50% 50%, transparent 78%, var(--paper) 100%);
-}
-
-/* A windowed excerpt of the network animation, not the whole scene:
-   the composition is rendered oversized and offset so this small box
-   crops into one interesting slice rather than shrinking everything. */
-.hero__network .connection-network {
-  position: absolute;
-  width: 756px;
-  height: 425px;
-  left: -147px;
-  top: -253px;
+.route-mark {
+  width: 100%;
+  height: auto;
 }
 
 .hero__actions {
