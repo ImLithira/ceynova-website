@@ -30,6 +30,7 @@ const COLORS = {
 const SWEEP_FRAMES = 38;
 const FADE_FRAMES = 18;
 const TRAIL_FRACTION = 0.42;
+const SETTLED_OPACITY = 0.55;
 
 /**
  * Strictly isolated 1-to-1 connections: each pair owns two nodes that never
@@ -116,14 +117,17 @@ export const Network: React.FC = () => {
           const active = local >= 0;
 
           // Head travels 0 -> 1 across the sweep, then holds at the
-          // destination while the whole trail fades out.
+          // destination while the moving trail fades into a settled line.
           const t = interpolate(active ? local : -1, [0, SWEEP_FRAMES], [0, 1], {
             extrapolateLeft: "clamp",
             extrapolateRight: "clamp",
             easing: Easing.inOut(Easing.cubic),
           });
 
-          const trailOpacity = active
+          // The bright, moving comet-trail -- visible only during the sweep,
+          // then fades out (not to nothing: the settled line below fades in
+          // as this fades out, so the connection persists once it lands).
+          const sweepOpacity = active
             ? interpolate(
                 local,
                 [0, SWEEP_FRAMES, SWEEP_FRAMES + FADE_FRAMES],
@@ -131,6 +135,19 @@ export const Network: React.FC = () => {
                 { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
               )
             : 0;
+
+          // The full connecting line, once the sweep first lands -- stays
+          // visible permanently from then on (driven by absolute frame, not
+          // the repeating `local` cycle, so it never resets to invisible on
+          // later sweeps). The bright comet can still replay periodically
+          // on top for a sense of ongoing activity.
+          const firstLandingFrame = pair.sweepDelay + SWEEP_FRAMES;
+          const settledOpacity = interpolate(
+            frame,
+            [firstLandingFrame, firstLandingFrame + FADE_FRAMES],
+            [0, SETTLED_OPACITY],
+            { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
+          );
 
           const trailLength = length * TRAIL_FRACTION;
           const dashOffset = t * length - trailLength;
@@ -159,7 +176,18 @@ export const Network: React.FC = () => {
                 <stop offset="100%" stopColor={baseColor} stopOpacity={0.95} />
               </linearGradient>
 
-              {trailOpacity > 0.05 && (
+              {settledOpacity > 0.02 && (
+                <path
+                  d={pathD}
+                  fill="none"
+                  stroke={baseColor}
+                  strokeWidth={strokeWidth * 0.7}
+                  strokeLinecap="round"
+                  opacity={settledOpacity}
+                />
+              )}
+
+              {sweepOpacity > 0.05 && (
                 <>
                   <path
                     d={pathD}
@@ -169,7 +197,7 @@ export const Network: React.FC = () => {
                     strokeLinecap="round"
                     strokeDasharray={`${trailLength} ${length}`}
                     strokeDashoffset={dashOffset}
-                    opacity={trailOpacity}
+                    opacity={sweepOpacity}
                   />
                   <circle
                     cx={headPoint.x}
@@ -177,7 +205,7 @@ export const Network: React.FC = () => {
                     r={pair.pulse ? 5 : 3.5}
                     fill={headColor}
                     filter={pair.pulse ? "url(#soft-glow)" : undefined}
-                    opacity={trailOpacity}
+                    opacity={sweepOpacity}
                   />
                 </>
               )}

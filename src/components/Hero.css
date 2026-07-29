@@ -41,6 +41,12 @@
   margin-top: var(--space-6);
   overflow: hidden;
   position: relative;
+  /* Soft-edged window instead of a hard rectangular clip -- anything
+     crossing the boundary fades out rather than getting cut off. Radii
+     stay under 50% so the gradient reaches true transparency strictly
+     inside the box, before overflow:hidden would otherwise clip it. */
+  -webkit-mask-image: radial-gradient(ellipse 49% 49% at 50% 50%, #000 78%, transparent 100%);
+  mask-image: radial-gradient(ellipse 49% 49% at 50% 50%, #000 78%, transparent 100%);
 }
 
 /* A windowed excerpt of the network animation, not the whole scene:
